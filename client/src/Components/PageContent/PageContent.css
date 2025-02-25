@@ -1,0 +1,14 @@
+.search {
+    width: 50%; /* Increases width of the search bar container */
+    margin-bottom: 20px; }
+  
+    @media screen and (max-width: 800px) {
+      .mobile-style{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+      .mobile-btn-gap {
+        margin: 5px 0;
+      }
+    }
