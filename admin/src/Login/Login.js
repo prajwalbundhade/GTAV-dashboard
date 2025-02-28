@@ -12,7 +12,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:5000/api/login", {
+      const response = await axios.post("https://gtavdashboard.craftifyproductions.com/api/login", {
         email,
         password,
       }); 

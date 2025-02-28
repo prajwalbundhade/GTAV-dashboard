@@ -67,7 +67,7 @@ function Posts() {
   
   const fetchPosts = async () => {
     try {
-      const response = await axios.get("https://craftifyproductions.com/api/posts/new-all-post"); // Updated URL
+      const response = await axios.get("https://gtavdashboard.craftifyproductions.com/api/posts/new-all-post"); // Updated URL
       setPostsData(response.data);
       setLoading(false);
     } catch (error) {
@@ -77,7 +77,7 @@ function Posts() {
   };
   const handleDelete = async (postId) => {
     try {
-      await axios.delete(`https://craftifyproductions.com/api/posts/${postId}`);
+      await axios.delete(`https://gtavdashboard.craftifyproductions.com/api/posts/${postId}`);
       Swal.fire('Deleted!', 'Your post has been deleted.', 'success');
       fetchPosts();  // Refresh the list of posts after successful deletion
     } catch (error) {
@@ -120,7 +120,7 @@ function Posts() {
 
   // Update the order in the database via API
   try {
-    await axios.post("https://craftifyproductions.com/api/order/update", {
+    await axios.post("https://gtavdashboard.craftifyproductions.com/api/order/update", {
       draggedPostId: movedPost._id,
       targetPostId: reorderedPosts[destination.index]._id,
       newPosition: destination.index,

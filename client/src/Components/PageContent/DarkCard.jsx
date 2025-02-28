@@ -3,16 +3,22 @@ import { Card, Button, Badge, Modal, Table } from 'react-bootstrap';
 import './DarkCard.css';
 
 const DarkCard = ({ data }) => {
-  const { ytLink, title, category, state, imagePath, description, buyNow, price, bookNow } = data;
+  const { ytLink, title, category, state, imagePath, description, buyNow, price, bookNow, newbuynow } = data;
 
-  const [showModal, setShowModal] = useState(false);
+  const [showBookModal, setShowBookModal] = useState(false);
+  const [showNewBuyNowModal, setShowNewBuyNowModal] = useState(false);
 
   const handleModalClose = () => {
-    setShowModal(false);
+    setShowBookModal(false);
+    setShowNewBuyNowModal(false);
   };
 
   const handleBookNow = () => {
-    setShowModal(true);
+    setShowBookModal(true);
+  };
+
+  const handleNewBuyNow = () => {
+    setShowNewBuyNowModal(true);
   };
 
   const getStateBadge = (state) => {
@@ -53,15 +59,20 @@ const DarkCard = ({ data }) => {
           )}
 
           {bookNow && (
-            <Button variant="warning" className='bookbutton' onClick={handleBookNow}>Buy Now</Button>
+            <Button variant="warning" className='bookbutton' onClick={handleNewBuyNow}>Book Now</Button>
+          )}
+
+          {/* New Buy Now Button */}
+          {newbuynow && (
+            <Button className='newbuybutton' onClick={handleBookNow}>Buy Now</Button>
           )}
         </Card.Body>
       </Card>
 
-      {/* Modal */}
-      <Modal show={showModal} onHide={handleModalClose}>
+      {/* Modal for Booking */}
+      <Modal show={showBookModal} onHide={handleModalClose}>
         <Modal.Header closeButton>
-          <Modal.Title>How to Book</Modal.Title>
+          <Modal.Title>How to Buy</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p>Follow these steps to book this product:</p>
@@ -69,12 +80,12 @@ const DarkCard = ({ data }) => {
             <tbody>
               <tr>
                 <td>1)</td>
-                <td>Select the mod which you are interested in buying.</td>
+                <td>This mod needs customization according to your skin.</td>
               </tr>
               <tr>
                 <td>2)</td>
                 <td>
-                  If its available for book now, you have to contact me here:
+                This mod is completed, you have to contact me here:
                   <ul>
                     <li>Email - <a href="mailto:contact@craftifyproductions.com">contact@craftifyproductions.com</a></li>
                     <li>Email - <a href="mailto:techthunderz443@gmail.com">techthunderz443@gmail.com</a></li>
@@ -84,16 +95,38 @@ const DarkCard = ({ data }) => {
               </tr>
               <tr>
                 <td>3)</td>
-                <td>Here you have to message me regarding this mod that you are interested in buying.</td>
+                <td>Here you have to send me your skin and the players who will be playing the mod.</td>
               </tr>
               <tr>
                 <td>4)</td>
                 <td>
-                  I will send an invoice, and once you pay, you will receive the mod in 24-48 Hours.
+                I will send an invoice, and once you pay, you will receive the mod in 24-48 Hours.
                 </td>
               </tr>
             </tbody>
           </Table>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleModalClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal for New Buy Now */}
+      <Modal show={showNewBuyNowModal} onHide={handleModalClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Book Now Mods</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>These mods are <strong>under development</strong> and can be <strong>booked in advance</strong> for your region.</p>
+          <p>📩 To book, contact me:</p>
+          <ul>
+            <li>Email – <a href="mailto:contact@craftifyproductions.com">contact@craftifyproductions.com</a></li>
+            <li>Email – <a href="mailto:techthunderz443@gmail.com">techthunderz443@gmail.com</a></li>
+            <li>💬 Discord – thunderzlucky</li>
+          </ul>
+          <p>Once the mod is complete, you’ll receive it within <strong>24-48 hours</strong> after payment.</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleModalClose}>

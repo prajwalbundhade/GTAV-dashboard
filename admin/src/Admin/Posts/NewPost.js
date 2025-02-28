@@ -17,6 +17,7 @@ function AddPost() {
     ytLink: '',
     price: '',
     bookNow: '',
+    newbuynow: ''
   });
 
   const handleChange = (e) => {
@@ -27,7 +28,7 @@ function AddPost() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Data:", formData);
-    axios.post("https://craftifyproductions.com/api/posts/new", formData, {
+    axios.post("https://gtavdashboard.craftifyproductions.com/api/posts/new", formData, {
         headers: {
           Authorization: 'Bearer ' + AuthToken(),
         },
@@ -67,6 +68,7 @@ function AddPost() {
     ytLink: '',
     price: '',
     bookNow: '',
+    newbuynow: ''
     });
   };
 
@@ -215,6 +217,20 @@ function AddPost() {
             id="bookNow"
             name="bookNow"
             value={formData.bookNow}
+            onChange={handleChange}
+            className="border rounded-lg p-2"
+          />
+        </div>
+
+        <div className="flex flex-col">
+          <label htmlFor="newbuynow" className="text-lg">
+            New Buy Now (Write 'ok' to enable button)
+          </label>
+          <input
+            type="text"
+            id="newbuynow"
+            name="newbuynow"
+            value={formData.newbuynow}
             onChange={handleChange}
             className="border rounded-lg p-2"
           />

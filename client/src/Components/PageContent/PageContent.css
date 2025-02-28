@@ -1,4 +1,6 @@
-.search {
+
+  
+  .search {
     width: 50%; /* Increases width of the search bar container */
     margin-bottom: 20px; }
   
@@ -12,3 +14,36 @@
         margin: 5px 0;
       }
     }
+    /* Container for the search bar and shuffle button */
+.search-and-shuffle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  width: 60%;  /* Adjust the width of the search input */
+  margin-right: 10px;  /* Add space between search input and button */
+}
+
+.shuffle-btn {
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.shuffle-btn img{
+  width: 35px;
+  height: 35px;
+}
+.shuffle-btn:hover,
+.shuffle-btn:focus {
+  /* background: linear-gradient(45deg, #ee0979, #ff6a00); Reverse gradient on hover */
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.shuffle-btn:active {
+  /* background: linear-gradient(45deg, #ee0979, #ff6a00); Keep the same gradient on click */
+  transform: scale(0.98); /* Slight shrink effect on click */
+}
