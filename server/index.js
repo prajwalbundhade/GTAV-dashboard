@@ -1,7 +1,7 @@
 const express = require("express");
 const connectDB = require("./config/db");
 const dotenv = require("dotenv");
-// const cors = require("cors");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const authRoutes = require("./routes/authRoutes");
 const postRoutes = require("./routes/posts");
@@ -11,7 +11,7 @@ dotenv.config();
 connectDB();
 
 const app = express();
-// app.use(cors());
+app.use(cors());
 app.use(bodyParser.json());
 
 // Allow all origins
