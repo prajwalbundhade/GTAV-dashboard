@@ -117,11 +117,11 @@
 //       <td className="border p-2">{message.date}</td>
 //       <td className="border p-2">
 //         <Link to={`${message.id}?name=${message.name}&email=${message.email}&subject=${message.subject}&date=${message.date}`}>
-//             <FontAwesomeIcon className="text-indigo-500 hover:cursor-pointer" icon={faEye}/>
+//             <FontAwesomeIcon className="text-green-500 hover:cursor-pointer" icon={faEye}/>
 //         </Link>
 //       </td>
 //       <td className="border p-2">
-//         <button onClick={handleDelete} className="text-indigo-500 hover:cursor-pointer">
+//         <button onClick={handleDelete} className="text-green-500 hover:cursor-pointer">
 //            <FontAwesomeIcon icon={faTrash} />
 //         </button>
 //       </td>

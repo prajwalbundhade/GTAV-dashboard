@@ -230,7 +230,7 @@
 //     >
 //       <div className="flex flex-row m-4">
 //         <div onClick={AddCategory} className="border bg-white text-xl p-2 rounded-lg shadow-md p-4 cursor-pointer">
-//           <span className="text-indigo-500 p-3">
+//           <span className="text-green-500 p-3">
 //             <FontAwesomeIcon icon={faPlus} />
 //           </span>{' '}
 //           New category
@@ -260,13 +260,13 @@
 //         <td className="px-5 py-3 max-w-sm truncate  ">{category.description}</td>
 //         <td className="px-5 py-3 "  onClick={() => DeleteCategory(category)}>
 //           <FontAwesomeIcon
-//             className="text-indigo-500 cursor-pointer hover:text-indigo-700"
+//             className="text-green-500 cursor-pointer hover:text-indigo-700"
 //             icon={faTrash}
 //           />
 //         </td>
 //         <td className="px-6 py-4 " onClick={() => UpdateCategory(category)}>
 //           <FontAwesomeIcon
-//             className="text-indigo-500 cursor-pointer hover:text-indigo-700"
+//             className="text-green-500 cursor-pointer hover:text-indigo-700"
 //             icon={faPen}
 //           />
 //         </td>

@@ -61,7 +61,7 @@ const EditPost = () => {
       style={{ width: '900px' }}
       className="shadow-md flex-row px-1 mt-5 items-center pt-2 pb-2 mb-2 justify-center rounded-lg ml-10 bg-white"
     >
-      <h2 className="text-2xl font-semibold mb-4 text-center hover:text-indigo-500">Edit Post</h2>
+      <h2 className="text-2xl font-semibold mb-4 text-center hover:text-green-500">Edit Post</h2>
       <form onSubmit={handleSubmit} className="space-y-4 w-full p-1">
         <div className="flex flex-col">
           <label htmlFor="title" className="text-lg">Title</label>
@@ -201,7 +201,7 @@ const EditPost = () => {
         <div className="flex space-x-4">
           <button
             type="submit"
-            className="bg-indigo-500 text-white py-2 px-4 rounded-lg hover:bg-indigo-600 transition duration-300"
+            className="text-green-500 text-white py-2 px-4 rounded-lg hover:bg-indigo-600 transition duration-300"
           >
             Update Post
           </button>

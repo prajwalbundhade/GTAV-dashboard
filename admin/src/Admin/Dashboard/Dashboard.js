@@ -14,7 +14,7 @@
 // function AnalyticsCard({ title, value, icon }) {
 //   return (
 //     <div className="bg-white rounded-lg shadow-md p-4 flex items-center space-x-4">
-//       <FontAwesomeIcon icon={icon} className="text-4xl text-indigo-500" />
+//       <FontAwesomeIcon icon={icon} className="text-4xl text-green-500" />
 //       <div>
 //         <h3 className="text-lg font-semibold">{title}</h3>
 //         <p className="text-3xl font-bold mt-2">{value}</p>

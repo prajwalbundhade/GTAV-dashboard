@@ -142,12 +142,12 @@ function Posts() {
           <div className="flex justify-between mb-4">
             <Link
               to="/Admin/Post/New"
-              className="bg-indigo-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-indigo-600"
+              className="text-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-indigo-600"
             >
               <FontAwesomeIcon icon={faPlus} /> New Post
             </Link>
             <div className="flex items-center bg-white border rounded-lg shadow-md px-4 py-2">
-              <FontAwesomeIcon icon={faSearch} className="text-indigo-500 mr-2" />
+              <FontAwesomeIcon icon={faSearch} className="text-green-500 mr-2" />
               <input
                 type="text"
                 placeholder="Search"
