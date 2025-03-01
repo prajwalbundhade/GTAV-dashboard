@@ -108,7 +108,7 @@ const EditPost = () => {
             className="border rounded-lg p-2"
           >
             <option value="">Select a category</option>
-            {["Minecraft But Mods & Plugins", "Premium Mods & Plugins", "Trending Packages", "New Models", "Discounted Mods"].map((category, index) => (
+            {["Fivem", "Singleplayer"].map((category, index) => (
               <option key={index} value={category}>
                 {category}
               </option>
@@ -117,13 +117,12 @@ const EditPost = () => {
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="state" className="text-lg">State</label>
+          <label htmlFor="state" className="text-lg">State (Not required)</label>
           <select
             id="state"
             name="state"
             value={formData.state}
             onChange={handleChange}
-            required
             className="border rounded-lg p-2"
           >
             <option value="">Select a state</option>

@@ -122,7 +122,7 @@ const handleImageChange = () => {
     className="border rounded-lg p-2"
   >
     <option value="">Select a category</option>
-    {["Minecraft But Mods & Plugins", "Premium Mods & Plugins", "Trending Packages", "New Models", "Discounted Mods"].map((category, index) => (
+    {["Fivem", "Singleplayer"].map((category, index) => (
       <option key={index} value={category}>
         {category}
       </option>
@@ -133,7 +133,7 @@ const handleImageChange = () => {
 
         <div className="flex flex-col">
           <label htmlFor="state" className="text-lg">
-            State
+            State (Not required)
           </label>
           <select
             id="state"
