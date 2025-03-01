@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Button, Badge, Modal, Table } from 'react-bootstrap';
+import { Card, Button, Badge, Modal, Table, Carousel } from 'react-bootstrap';
 import './DarkCard.css';
 
 const DarkCard = ({ data }) => {
@@ -7,7 +7,7 @@ const DarkCard = ({ data }) => {
 
   const [showBookModal, setShowBookModal] = useState(false);
   const [showNewBuyNowModal, setShowNewBuyNowModal] = useState(false);
-
+  const images = Array.isArray(imagePath) ? imagePath : (imagePath ? [imagePath] : []);
   const handleModalClose = () => {
     setShowBookModal(false);
     setShowNewBuyNowModal(false);
@@ -39,14 +39,20 @@ const DarkCard = ({ data }) => {
   return (
     <>
       <Card className="bg-dark text-white mb-3 cardStyle">
-        <a href={ytLink} target="_blank" rel="noopener noreferrer">
-          <Card.Img className='CardImg' variant="top" src={imagePath} alt={`${title} image`} />
-          {/* Positioning the badge on top-left */}
-          <div className="badge-container">
-            {getStateBadge(state)}
-          </div>
-        </a>
-        <Card.Body>
+       
+       <Carousel indicators={true} controls={true}>
+       {images.map((img, index) => (
+  <Carousel.Item key={index}>
+    <Card.Img className="CardImg" variant="top" src={img} alt={`${title} image`} />
+  </Carousel.Item>
+))}
+         </Carousel>
+         {/* Positioning the badge on top-left */}
+         <div className="badge-container">
+           {getStateBadge(state)}
+         </div>
+     
+       <Card.Body>
           <Card.Title className="card-title">
             {title}
           </Card.Title>

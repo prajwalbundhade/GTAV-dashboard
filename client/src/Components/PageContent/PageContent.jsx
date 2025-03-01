@@ -20,7 +20,7 @@ const PageContent = () => {
         setLoading(false);
       }
     };
-  
+
     fetchCardsData();
   }, []); // Fetch only on mount
 
@@ -48,8 +48,8 @@ const PageContent = () => {
     const cardTitle = card.title || '';
     const cardDescription = card.description || '';
     return (selectedCategory === 'All' || card.category === selectedCategory) &&
-           (cardTitle.toLowerCase().includes(searchTerm.toLowerCase()) || 
-            cardDescription.toLowerCase().includes(searchTerm.toLowerCase()));
+      (cardTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        cardDescription.toLowerCase().includes(searchTerm.toLowerCase()));
   });
 
   if (loading) {
@@ -58,45 +58,45 @@ const PageContent = () => {
 
   return (
     <div className="container mt-5">
-    <div className="d-flex justify-content-between align-items-center flex-column mb-3">
-      {/* Search bar and shuffle button container */}
-      <div className="col search-and-shuffle">
-        <input 
-          type="text" 
-          className="form-control search-input" 
-          placeholder="Search here.." 
-          value={searchTerm} 
-          onChange={handleSearchChange} 
-        />
-        <button 
-          onClick={shuffleCards} 
-          className="btn shuffle-btn"
-        >
-          <img src="https://cdn3d.iconscout.com/3d/premium/thumb/shuffle-3d-icon-download-in-png-blend-fbx-gltf-file-formats--game-play-dice-music-arrow-button-pack-user-interface-icons-9147825.png?f=webp" alt="" />
-        </button>
-      </div>
-
-      <div className="btn-group mobile-style" role="group">
-        {categories.map((category, index) => (
-          <button 
-            key={index} 
-            type="button" 
-            className={`btn mobile-btn-gap ${selectedCategory === category ? 'btn-primary' : 'btn-outline-primary'}`} 
-            onClick={() => handleCategoryChange(category)}
+      <div className="d-flex justify-content-between align-items-center flex-column mb-3">
+        {/* Search bar and shuffle button container */}
+        <div className="col search-and-shuffle">
+          <input
+            type="text"
+            className="form-control search-input"
+            placeholder="Search here.."
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+          <button
+            onClick={shuffleCards}
+            className="btn shuffle-btn"
           >
-            {category}
+            <img src="https://cdn3d.iconscout.com/3d/premium/thumb/shuffle-3d-icon-download-in-png-blend-fbx-gltf-file-formats--game-play-dice-music-arrow-button-pack-user-interface-icons-9147825.png?f=webp" alt="" />
           </button>
+        </div>
+
+        <div className="btn-group mobile-style" role="group">
+          {categories.map((category, index) => (
+            <button
+              key={index}
+              type="button"
+              className={`btn mobile-btn-gap ${selectedCategory === category ? 'btn-primary' : 'btn-outline-primary'}`}
+              onClick={() => handleCategoryChange(category)}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className="row">
+        {filteredCards.map((card, index) => (
+          <div className="col-md-3" key={index}>
+            <DarkCard data={card} />
+          </div>
         ))}
       </div>
     </div>
-    <div className="row">
-      {filteredCards.map((card, index) => (
-        <div className="col-md-3" key={index}>
-          <DarkCard data={card} />
-        </div>
-      ))}
-    </div>
-  </div>
   );
 };
 

@@ -20,18 +20,12 @@
 }
 .tag {
   display: inline-block;
-
   margin-right: 7px;
-
   background-color: rgba(46, 195, 183, 0);
-
   border-radius: 10px;
-
   /* This makes room for the triangle */
   margin-left: 0px;
-
   position: relative;
-
   color: white;
   font-weight: 600;
   font-family: "Source Sans Pro", sans-serif;
@@ -63,6 +57,82 @@
   font-size: 13px !important;
   font-weight: 600 !important;
 }
+
+
+/* Slider images */
+
+/* Make the dots bold and more noticeable */
+.carousel-indicators li {
+  background-color: #fff; /* White dots */
+  border-radius: 50%; /* Round dots */
+  width: 15px; /* Increase size of dots */
+  height: 15px;
+  opacity: 0.8; /* Slight opacity for subtle effect */
+}
+
+.carousel-indicators .active {
+  background-color: #ff6347; /* Red or any color to highlight the active dot */
+  opacity: 1; /* Full opacity for active dot */
+}
+
+/* Make the navigation arrows more prominent */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: #ff6347; /* Red or your preferred color for arrows */
+  border-radius: 50%; /* Make the arrows circular */
+  width: 40px; /* Increase arrow size */
+  height: 40px;
+  opacity: 0.8; /* Slight opacity for subtle effect */
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+  opacity: 1; /* Full opacity on hover */
+}
+
+.CardImg {
+  width: 100%;
+  border-radius: 10px;
+  height: 180px;
+  object-fit: cover;
+}
+
+.cardStyle {
+  margin-top: 25px;
+  border: 1px solid #d3d3d3ce !important;
+}
+
+.card-title {
+  font-size: 16px !important;
+}
+
+.desc {
+  font-size: 12px;
+}
+
+.tag {
+  display: inline-block;
+  margin-right: 7px;
+  background-color: rgba(46, 195, 183, 0);
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+}
+
+.badge-container {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  z-index: 1;
+}
+
+.buybutton, .bookbutton, .newbuybutton {
+  border-radius: 15px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
 
 .newbuybutton {
   border-radius: 15px !important;
