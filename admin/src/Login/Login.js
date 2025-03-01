@@ -71,7 +71,7 @@ function Login() {
           {error && <p className="text-red-500 mb-4">{error}</p>}
 
           <div className="text-center">
-            <button className="w-full bg-blue-500 text-white p-2 rounded hover-bg-blue-600" type="submit">
+            <button className="w-full bg-green-500 text-white p-2 rounded hover-bg-green-600" type="submit">
               Sign In
             </button>
           </div>

@@ -20,8 +20,8 @@ const PostSchema = new mongoose.Schema(
       default: "",
     },
     imagePath: {
-      type: String,
-      default: "",
+      type: [String],
+      default: [],
     },
     description: {
       type: String,

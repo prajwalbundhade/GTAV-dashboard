@@ -12,7 +12,7 @@ const EditPost = () => {
     title: '',
     category: '',
     state: '',
-    imagePath: '',
+    imagePath: [], // Changed from string to array
     description: '',
     buyNow: '',
     ytLink: '',
@@ -21,16 +21,24 @@ const EditPost = () => {
     newbuynow: ''
   });
 
+  const [newImage, setNewImage] = useState(""); // Input field for new image URL
   // Fetch the post details on component mount
   useEffect(() => {
     const fetchPostData = async () => {
-      console.log("Fetching post with ID:", id);  // Check if ID is correct
+      console.log("Fetching post with ID:", id);
       try {
-        const response = await axios.get(`https://gtavdashboard.craftifyproductions.com/api/posts/${id}`);
-        setFormData(response.data);
+        const response = await axios.get(
+          `https://gtavdashboard.craftifyproductions.com/api/posts/${id}`
+        );
+        
+        // Ensure imagePath is an array
+        const postData = response.data;
+        postData.imagePath = Array.isArray(postData.imagePath) ? postData.imagePath : [];
+
+        setFormData(postData);
       } catch (error) {
         console.error("Error fetching post data:", error);
-        Swal.fire('Error', 'Failed to fetch post data', 'error');
+        Swal.fire("Error", "Failed to fetch post data", "error");
       }
     };
     fetchPostData();
@@ -40,6 +48,19 @@ const EditPost = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+   // Handle image addition
+   const addImage = () => {
+    if (newImage.trim() !== "") {
+      setFormData({ ...formData, imagePath: [...formData.imagePath, newImage] });
+      setNewImage(""); // Clear input field
+    }
+  };
+
+  // Handle image removal
+  const removeImage = (index) => {
+    const updatedImages = formData.imagePath.filter((_, i) => i !== index);
+    setFormData({ ...formData, imagePath: updatedImages });
   };
 
   // Handle post update
@@ -114,17 +135,45 @@ const EditPost = () => {
           </select>
         </div>
 
+        {/* Image Upload Section */}
         <div className="flex flex-col">
-          <label htmlFor="imagePath" className="text-lg">Picture URL</label>
-          <input
-            type="text"
-            id="imagePath"
-            name="imagePath"
-            value={formData.imagePath}
-            onChange={handleChange}
-            required
-            className="border rounded-lg p-2"
-          />
+          <label className="text-lg">Picture URLs (Click on Add button if you want to add multiple images)</label>
+
+          {/* Display existing images */}
+          {formData.imagePath.length > 0 && (
+            <div className="mt-2 space-y-2">
+              {formData.imagePath.map((img, index) => (
+                <div key={index} className="flex items-center space-x-2">
+                  <input type="text" value={img} readOnly className="border rounded-lg p-2 w-full" />
+                  <button
+                    type="button"
+                    onClick={() => removeImage(index)}
+                    className="bg-red-500 text-white px-3 py-1 rounded-lg"
+                  >
+                    X
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Input field for new image URLs */}
+          <div className="flex items-center space-x-2 mt-2">
+            <input
+              type="text"
+              placeholder="Enter image URL"
+              value={newImage}
+              onChange={(e) => setNewImage(e.target.value)}
+              className="border rounded-lg p-2 w-full"
+            />
+            <button
+              type="button"
+              onClick={addImage}
+              className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+            >
+              Add
+            </button>
+          </div>
         </div>
 
         <div className="flex flex-col">
@@ -201,7 +250,7 @@ const EditPost = () => {
         <div className="flex space-x-4">
           <button
             type="submit"
-            className="text-green-500 text-white py-2 px-4 rounded-lg hover:bg-indigo-600 transition duration-300"
+            className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-300"
           >
             Update Post
           </button>
@@ -211,7 +260,7 @@ const EditPost = () => {
               title: '',
               category: '',
               state: '',
-              imagePath: '',
+              imagePath: [],
               description: '',
               buyNow: '',
               ytLink: '',

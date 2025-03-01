@@ -16,7 +16,7 @@ const DraggablePost = React.memo(({ post, index, handleDelete, handleEdit }) => 
         >
         <td className="py-2 text-center">{post.order}</td>
           <td className="py-2">
-            <img className="w-20 mx-auto" src={post.imagePath} alt={post.title} />
+          <img className="w-20 mx-auto" src={post.imagePath[0]} alt={post.title} />
           </td>
           <td className="py-2 truncate">{post.title}</td>
           <td className="py-2">{post.category}</td>

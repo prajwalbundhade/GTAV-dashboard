@@ -142,7 +142,7 @@ function Posts() {
           <div className="flex justify-between mb-4">
             <Link
               to="/Admin/Post/New"
-              className="text-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-indigo-600"
+              className="bg-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-600"
             >
               <FontAwesomeIcon icon={faPlus} /> New Post
             </Link>

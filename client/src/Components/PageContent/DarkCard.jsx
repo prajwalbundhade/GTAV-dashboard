@@ -7,7 +7,7 @@ const DarkCard = ({ data }) => {
 
   const [showBookModal, setShowBookModal] = useState(false);
   const [showNewBuyNowModal, setShowNewBuyNowModal] = useState(false);
-  const images = Array.isArray(imagePath) ? imagePath : (imagePath ? [imagePath] : []);
+
   const handleModalClose = () => {
     setShowBookModal(false);
     setShowNewBuyNowModal(false);
@@ -41,11 +41,18 @@ const DarkCard = ({ data }) => {
       <Card className="bg-dark text-white mb-3 cardStyle">
        
        <Carousel indicators={true} controls={true}>
-       {images.map((img, index) => (
-  <Carousel.Item key={index}>
-    <Card.Img className="CardImg" variant="top" src={img} alt={`${title} image`} />
-  </Carousel.Item>
-))}
+           {imagePath.map((imagePath, index) => (
+             <Carousel.Item key={index}>
+             {/* Only the first image is wrapped in an anchor tag */}
+             {index === 0 ? (
+               <a href={ytLink} target="_blank" rel="noopener noreferrer">
+                 <Card.Img className="CardImg" variant="top" src={imagePath} alt={`${title} image`} />
+               </a>
+             ) : (
+               <Card.Img className="CardImg" variant="top" src={imagePath} alt={`${title} image`} />
+             )}
+           </Carousel.Item>
+           ))}
          </Carousel>
          {/* Positioning the badge on top-left */}
          <div className="badge-container">
