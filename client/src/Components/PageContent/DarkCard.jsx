@@ -88,7 +88,7 @@ const DarkCard = ({ data }) => {
           <Modal.Title>How to Buy</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Follow these steps to book this product:</p>
+          <p>Follow these steps to buy this product:</p>
           <Table bordered>
             <tbody>
               <tr>
@@ -129,7 +129,7 @@ const DarkCard = ({ data }) => {
       {/* Modal for New Buy Now */}
       <Modal show={showNewBuyNowModal} onHide={handleModalClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Book Now Mods</Modal.Title>
+          <Modal.Title>How to Book Mods</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p>These mods are <strong>under development</strong> and can be <strong>booked in advance</strong> for your region.</p>
