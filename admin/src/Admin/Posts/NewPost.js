@@ -122,7 +122,7 @@ const handleImageChange = () => {
     className="border rounded-lg p-2"
   >
     <option value="">Select a category</option>
-    {["Fivem", "Singleplayer"].map((category, index) => (
+    {["Cars", "Props"].map((category, index) => (
       <option key={index} value={category}>
         {category}
       </option>
@@ -143,7 +143,7 @@ const handleImageChange = () => {
             className="border rounded-lg p-2"
           >
             <option value="">Select a state</option>
-            {["Mod", "Plugin", "Datapack", "Package"].map((state, index) => (
+            {["Cars", "Map", "Mod"].map((state, index) => (
       <option key={index} value={state}>
         {state}
       </option>

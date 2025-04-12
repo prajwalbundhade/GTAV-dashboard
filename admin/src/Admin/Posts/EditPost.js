@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 const EditPost = () => {
   const { id } = useParams(); // Get the post ID from the URL
   const navigate = useNavigate();
-  
+
   const [formData, setFormData] = useState({
     title: '',
     category: '',
@@ -30,7 +30,7 @@ const EditPost = () => {
         const response = await axios.get(
           `https://gtavdashboard.craftifyproductions.com/api/posts/${id}`
         );
-        
+
         // Ensure imagePath is an array
         const postData = response.data;
         postData.imagePath = Array.isArray(postData.imagePath) ? postData.imagePath : [];
@@ -43,14 +43,14 @@ const EditPost = () => {
     };
     fetchPostData();
   }, [id]);
-  
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-   // Handle image addition
-   const addImage = () => {
+  // Handle image addition
+  const addImage = () => {
     if (newImage.trim() !== "") {
       setFormData({ ...formData, imagePath: [...formData.imagePath, newImage] });
       setNewImage(""); // Clear input field
@@ -108,7 +108,7 @@ const EditPost = () => {
             className="border rounded-lg p-2"
           >
             <option value="">Select a category</option>
-            {["Fivem", "Singleplayer"].map((category, index) => (
+            {["Cars", "Props"].map((category, index) => (
               <option key={index} value={category}>
                 {category}
               </option>
@@ -126,7 +126,7 @@ const EditPost = () => {
             className="border rounded-lg p-2"
           >
             <option value="">Select a state</option>
-            {["Mod", "Plugin", "Datapack", "Package"].map((state, index) => (
+            {["Cars", "Map", "Mod"].map((state, index) => (
               <option key={index} value={state}>
                 {state}
               </option>
