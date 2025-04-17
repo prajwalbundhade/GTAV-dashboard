@@ -7,8 +7,9 @@
 .cardStyle {
   /* width: 350px;  */
   /* height: 100%; */
-  border: 1px solid #d3d3d3ce !important;
+  border: 1px solid #4a4a4a !important;
   margin-top: 25px;
+  background: #2e2e2e !important;
 }
 
 .card-title {
@@ -99,7 +100,7 @@
 
 .cardStyle {
   margin-top: 25px;
-  border: 1px solid #d3d3d3ce !important;
+ 
 }
 
 .card-title {
@@ -147,3 +148,38 @@
   color: rgb(0, 0, 0) !important;
   border: 1px solid #00afb1 !important;
 }
+/* Container to control hover behavior */
+.image-carousel-container {
+  position: relative !important;
+}
+
+/* By default, hide the prev/next controls (on desktop) */
+.image-carousel-container .carousel-control-prev,
+.image-carousel-container .carousel-control-next {
+  display: none !important;
+}
+
+/* Always show the prev/next controls on mobile devices */
+@media (max-width: 991px) {
+  .image-carousel-container .carousel-control-prev,
+  .image-carousel-container .carousel-control-next {
+    display: flex !important;
+  }
+}
+
+/* Show the prev/next controls only on hover (desktop >= 992px) */
+@media (min-width: 992px) {
+  .image-carousel-container:hover .carousel-control-prev,
+  .image-carousel-container:hover .carousel-control-next {
+    display: flex !important;
+  }
+}
+
+/* Style for custom icons */
+.custom-carousel-icon {
+  width: 32px; /* Adjust size as needed */
+  height: 32px;
+  object-fit: contain;
+  filter: none !important; /* No hover effect */
+}
+

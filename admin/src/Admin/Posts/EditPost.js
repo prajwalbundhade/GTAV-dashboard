@@ -1,7 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import AdminLayout from '../../layouts/AdminLayout';
 import Swal from 'sweetalert2';
 
 const EditPost = () => {
@@ -68,7 +67,7 @@ const EditPost = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.put(`https://gtavdashboard.craftifyproductions.com/api/posts/${id}`, formData);
+      await axios.put(`https://gtavdashboard.craftifyproductions.com/api/posts/${id}`, formData);
       Swal.fire('Success', 'Post updated successfully', 'success');
       navigate('/Admin/Posts'); // Redirect to the list of posts after successful update
     } catch (error) {
