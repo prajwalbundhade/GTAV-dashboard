@@ -4,35 +4,46 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const EditPost = () => {
-  const { id } = useParams(); // Get the post ID from the URL
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     title: '',
     category: '',
     state: '',
-    imagePath: [], // Changed from string to array
+    mediaContent: [],
     description: '',
     buyNow: '',
-    ytLink: '',
     price: '',
     bookNow: '',
     newbuynow: ''
   });
 
-  const [newImage, setNewImage] = useState(""); // Input field for new image URL
-  // Fetch the post details on component mount
+  const [newMedia, setNewMedia] = useState({
+    imageUrl: '',
+    ytLink: '',
+    isRealVideo: false,
+    isRefVideo: false
+  });
+
   useEffect(() => {
     const fetchPostData = async () => {
       console.log("Fetching post with ID:", id);
       try {
-        const response = await axios.get(
-          `https://gtavdashboard.craftifyproductions.com/api/posts/${id}`
-        );
-
-        // Ensure imagePath is an array
+        const response = await axios.get(`https://gtavdashboard.craftifyproductions.com/api/posts/${id}`);
         const postData = response.data;
-        postData.imagePath = Array.isArray(postData.imagePath) ? postData.imagePath : [];
+        
+        // Convert old format to new format if necessary
+        if (Array.isArray(postData.imagePath)) {
+          postData.mediaContent = postData.imagePath.map((imageUrl, index) => ({
+            imageUrl,
+            ytLink: index === 0 ? postData.ytLink : '',
+            isRealVideo: index === 0 && postData.ytLink ? true : false,
+            isRefVideo: index > 0 && postData.ytLink ? true : false
+          }));
+          delete postData.imagePath;
+          delete postData.ytLink;
+        }
 
         setFormData(postData);
       } catch (error) {
@@ -43,37 +54,92 @@ const EditPost = () => {
     fetchPostData();
   }, [id]);
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  // Handle image addition
-  const addImage = () => {
-    if (newImage.trim() !== "") {
-      setFormData({ ...formData, imagePath: [...formData.imagePath, newImage] });
-      setNewImage(""); // Clear input field
+
+  const handleMediaInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    if (type === 'checkbox') {
+      // If checking Real Video, uncheck Ref Video and vice versa
+      if (name === 'isRealVideo' && checked) {
+        setNewMedia({
+          ...newMedia,
+          isRealVideo: true,
+          isRefVideo: false
+        });
+      } else if (name === 'isRefVideo' && checked) {
+        setNewMedia({
+          ...newMedia,
+          isRealVideo: false,
+          isRefVideo: true
+        });
+      } else {
+        setNewMedia({
+          ...newMedia,
+          [name]: checked
+        });
+      }
+    } else {
+      setNewMedia({
+        ...newMedia,
+        [name]: value
+      });
     }
   };
 
-  // Handle image removal
-  const removeImage = (index) => {
-    const updatedImages = formData.imagePath.filter((_, i) => i !== index);
-    setFormData({ ...formData, imagePath: updatedImages });
+  const handleAddMedia = () => {
+    if (newMedia.imageUrl.trim() !== "") {
+      setFormData({
+        ...formData,
+        mediaContent: [...formData.mediaContent, { ...newMedia }]
+      });
+      // Reset new media input
+      setNewMedia({
+        imageUrl: '',
+        ytLink: '',
+        isRealVideo: false,
+        isRefVideo: false
+      });
+    }
   };
 
-  // Handle post update
+  const removeMedia = (index) => {
+    const updatedMedia = formData.mediaContent.filter((_, i) => i !== index);
+    setFormData({ ...formData, mediaContent: updatedMedia });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       await axios.put(`https://gtavdashboard.craftifyproductions.com/api/posts/${id}`, formData);
       Swal.fire('Success', 'Post updated successfully', 'success');
-      navigate('/Admin/Posts'); // Redirect to the list of posts after successful update
+      navigate('/Admin/Posts');
     } catch (error) {
       console.error("Error updating post:", error);
       Swal.fire('Error', 'Failed to update post', 'error');
     }
+  };
+
+  const handleClear = () => {
+    setFormData({
+      title: '',
+      category: '',
+      state: '',
+      mediaContent: [],
+      description: '',
+      buyNow: '',
+      price: '',
+      bookNow: '',
+      newbuynow: ''
+    });
+    setNewMedia({
+      imageUrl: '',
+      ytLink: '',
+      isRealVideo: false,
+      isRefVideo: false
+    });
   };
 
   return (
@@ -83,6 +149,7 @@ const EditPost = () => {
     >
       <h2 className="text-2xl font-semibold mb-4 text-center hover:text-green-500">Edit Post</h2>
       <form onSubmit={handleSubmit} className="space-y-4 w-full p-1">
+        {/* Title field */}
         <div className="flex flex-col">
           <label htmlFor="title" className="text-lg">Title</label>
           <input
@@ -91,11 +158,11 @@ const EditPost = () => {
             name="title"
             value={formData.title}
             onChange={handleChange}
-            required
             className="border rounded-lg p-2"
           />
         </div>
 
+        {/* Category field */}
         <div className="flex flex-col">
           <label htmlFor="category" className="text-lg">Category</label>
           <select
@@ -103,20 +170,18 @@ const EditPost = () => {
             name="category"
             value={formData.category}
             onChange={handleChange}
-            required
             className="border rounded-lg p-2"
           >
             <option value="">Select a category</option>
             {["Cars", "Props"].map((category, index) => (
-              <option key={index} value={category}>
-                {category}
-              </option>
+              <option key={index} value={category}>{category}</option>
             ))}
           </select>
         </div>
 
+        {/* State field */}
         <div className="flex flex-col">
-          <label htmlFor="state" className="text-lg">State (Not required)</label>
+          <label htmlFor="state" className="text-lg">State</label>
           <select
             id="state"
             name="state"
@@ -126,54 +191,100 @@ const EditPost = () => {
           >
             <option value="">Select a state</option>
             {["Cars", "Map", "Mod"].map((state, index) => (
-              <option key={index} value={state}>
-                {state}
-              </option>
+              <option key={index} value={state}>{state}</option>
             ))}
           </select>
         </div>
 
-        {/* Image Upload Section */}
+        {/* Media Content Section */}
         <div className="flex flex-col">
-          <label className="text-lg">Picture URLs (Click on Add button if you want to add multiple images)</label>
-
-          {/* Display existing images */}
-          {formData.imagePath.length > 0 && (
-            <div className="mt-2 space-y-2">
-              {formData.imagePath.map((img, index) => (
-                <div key={index} className="flex items-center space-x-2">
-                  <input type="text" value={img} readOnly className="border rounded-lg p-2 w-full" />
-                  <button
-                    type="button"
-                    onClick={() => removeImage(index)}
-                    className="bg-red-500 text-white px-3 py-1 rounded-lg"
-                  >
-                    X
-                  </button>
+          <label className="text-lg font-semibold mb-2">Media Content</label>
+          
+          {/* Display existing media items */}
+          {formData.mediaContent.length > 0 && (
+            <div className="mt-2 space-y-4">
+              {formData.mediaContent.map((media, index) => (
+                <div key={index} className="p-4 border rounded-lg bg-gray-50">
+                  <div className="flex justify-between items-start mb-2">
+                    <span className="font-medium">Media Item #{index + 1}</span>
+                    <button
+                      type="button"
+                      onClick={() => removeMedia(index)}
+                      className="bg-red-500 text-white px-3 py-1 rounded-lg"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                  <div className="grid grid-cols-1 gap-2">
+                    <div>Image URL: {media.imageUrl}</div>
+                    <div>YouTube Link: {media.ytLink || 'None'}</div>
+                    <div>Video Type: {media.isRealVideo ? 'Real Video' : media.isRefVideo ? 'Reference Video' : 'No Video Type'}</div>
+                  </div>
                 </div>
               ))}
             </div>
           )}
 
-          {/* Input field for new image URLs */}
-          <div className="flex items-center space-x-2 mt-2">
-            <input
-              type="text"
-              placeholder="Enter image URL"
-              value={newImage}
-              onChange={(e) => setNewImage(e.target.value)}
-              className="border rounded-lg p-2 w-full"
-            />
-            <button
-              type="button"
-              onClick={addImage}
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-            >
-              Add
-            </button>
+          {/* Add new media form */}
+          <div className="mt-4 p-4 border rounded-lg bg-gray-50">
+            <h3 className="font-medium mb-3">Add New Media</h3>
+            <div className="space-y-3">
+              <div>
+                <label className="block text-sm mb-1">Image URL</label>
+                <input
+                  type="text"
+                  name="imageUrl"
+                  value={newMedia.imageUrl}
+                  onChange={handleMediaInputChange}
+                  className="border rounded-lg p-2 w-full"
+                  placeholder="Enter image URL"
+                />
+              </div>
+              <div>
+                <label className="block text-sm mb-1">YouTube Link (Optional)</label>
+                <input
+                  type="text"
+                  name="ytLink"
+                  value={newMedia.ytLink}
+                  onChange={handleMediaInputChange}
+                  className="border rounded-lg p-2 w-full"
+                  placeholder="Enter YouTube link"
+                />
+              </div>
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    name="isRealVideo"
+                    checked={newMedia.isRealVideo}
+                    onChange={handleMediaInputChange}
+                    className="w-4 h-4"
+                  />
+                  <label className="text-sm">Real Video</label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    name="isRefVideo"
+                    checked={newMedia.isRefVideo}
+                    onChange={handleMediaInputChange}
+                    className="w-4 h-4"
+                  />
+                  <label className="text-sm">Reference Video</label>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={handleAddMedia}
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg w-full"
+              >
+                Add Media Item
+              </button>
+            </div>
           </div>
         </div>
 
+        {/* Description field */}
         <div className="flex flex-col">
           <label htmlFor="description" className="text-lg">Description</label>
           <textarea
@@ -181,11 +292,11 @@ const EditPost = () => {
             name="description"
             value={formData.description}
             onChange={handleChange}
-            required
             className="border rounded-lg p-2"
           />
         </div>
 
+        {/* Buy Now Link field */}
         <div className="flex flex-col">
           <label htmlFor="buyNow" className="text-lg">Buy Now Link</label>
           <input
@@ -198,18 +309,7 @@ const EditPost = () => {
           />
         </div>
 
-        <div className="flex flex-col">
-          <label htmlFor="ytLink" className="text-lg">YouTube Video Link</label>
-          <input
-            type="text"
-            id="ytLink"
-            name="ytLink"
-            value={formData.ytLink}
-            onChange={handleChange}
-            className="border rounded-lg p-2"
-          />
-        </div>
-
+        {/* Price field */}
         <div className="flex flex-col">
           <label htmlFor="price" className="text-lg">Mod Price ($)</label>
           <input
@@ -222,6 +322,7 @@ const EditPost = () => {
           />
         </div>
 
+        {/* Book Now field */}
         <div className="flex flex-col">
           <label htmlFor="bookNow" className="text-lg">Book Now (Write 'ok' to enable button)</label>
           <input
@@ -233,6 +334,8 @@ const EditPost = () => {
             className="border rounded-lg p-2"
           />
         </div>
+
+        {/* New Buy Now field */}
         <div className="flex flex-col">
           <label htmlFor="newbuynow" className="text-lg">New Buy Now (Write 'ok' to enable button)</label>
           <input
@@ -245,6 +348,7 @@ const EditPost = () => {
           />
         </div>
 
+        {/* Submit and Clear buttons */}
         <div className="flex space-x-4">
           <button
             type="submit"
@@ -254,18 +358,7 @@ const EditPost = () => {
           </button>
           <button
             type="button"
-            onClick={() => setFormData({
-              title: '',
-              category: '',
-              state: '',
-              imagePath: [],
-              description: '',
-              buyNow: '',
-              ytLink: '',
-              price: '',
-              bookNow: '',
-              newbuynow: ''
-            })}
+            onClick={handleClear}
             className="bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition duration-300"
           >
             Clear
@@ -275,6 +368,5 @@ const EditPost = () => {
     </div>
   );
 };
-
 
 export default EditPost;

@@ -10,6 +10,15 @@
   border: 1px solid #4a4a4a !important;
   margin-top: 25px;
   background: #2e2e2e !important;
+  transition: transform 0.3s ease-in-out !important;
+  transform-origin: center center;
+}
+
+/* Card hover effect */
+@media (min-width: 992px) {
+  .cardStyle:hover {
+    transform: scale(1.03);
+  }
 }
 
 .card-title {
@@ -181,5 +190,54 @@
   height: 32px;
   object-fit: contain;
   filter: none !important; /* No hover effect */
+}
+
+.image-carousel-container {
+  position: relative;
+}
+
+.video-label {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 6px 12px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 2px 8px 2px 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@media (hover: hover) and (min-width: 992px) {
+  .image-container:hover .video-label {
+    opacity: 1;
+  }
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.CardImg {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+/* Optional: Add a subtle zoom effect on hover */
+@media (min-width: 992px) {
+  .image-container:hover .CardImg {
+    transform: scale(1.02);
+  }
 }
 
