@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import DarkCard from './DarkCard';
 import axios from 'axios';
 import './PageContent.css';

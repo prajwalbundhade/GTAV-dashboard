@@ -51,7 +51,7 @@ const DarkCard = ({ data }) => {
         <div className="image-carousel-container">
           {mediaContent && mediaContent.length > 1 ? (
             <Carousel
-              indicators={true}
+              indicators={false}
               controls={true}
               prevIcon={
                 <img
